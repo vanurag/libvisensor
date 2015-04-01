@@ -156,10 +156,13 @@ void ViSensorDriver::Impl::startAllCameras(uint32_t rate) {
 
   for (Sensor::IdMap::const_iterator it = sensors_.begin();
       it != sensors_.end(); ++it) {
-    if (it->second->type() == SensorType::CAMERA_MT9V034
-        || it->second->type() == SensorType::CAMERA_TAU640
-        || it->second->type() == SensorType::CAMERA_TAU320)
+    if (it->second->type() == SensorType::CAMERA_MT9V034) {
       startSensor(it->first, rate);
+    }
+    else if (it->second->type() == SensorType::CAMERA_TAU640 ||
+             it->second->type() == SensorType::CAMERA_TAU320) {
+      startSensor(it->first, 2*rate);
+    }
   }
 }
 
